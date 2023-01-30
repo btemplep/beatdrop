@@ -25,7 +25,7 @@ class RedisScheduleEntryList:
     page_size : int
         Redis suggested minimum page size.
     default_sched_entries : List[ScheduleEntry]
-        Default scheduler entries that will be iterated over first.
+        Default schedule entries that will be iterated over first.
     redis_conn : Redis
         Redis connection object.
     hash_key : str
@@ -121,7 +121,7 @@ class RedisScheduleEntryList:
 
 @dataclass
 class RedisScheduler(SingletonLockScheduler):
-    """Hold scheduler entries in a Redis. 
+    """Hold schedule entries in a Redis. 
 
     Uses Redis to store schedule entries and scheduler state.
     It is safe to run multiple ``RedisScheduler``s simultaneously, 

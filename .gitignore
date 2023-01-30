@@ -8,3 +8,4 @@ htmlcov/
 unit_test_redis.rdb
 dist/
 build/
+docs/_build/

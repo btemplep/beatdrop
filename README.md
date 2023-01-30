@@ -7,7 +7,7 @@ It **does not** run tasks or python functions on a schedule. It will simply inte
 
 ## Installation
 
-Install the base package with pip
+Install the base package with pip from PyPi https://pypi.org/project/beatdrop/.
 
 ```text
 $ pip install beatdrop
@@ -91,18 +91,3 @@ my_inter_entry = sched.get("my-interval-entry")
 sched.delete(inter)
 ```
 
-
-## Development
-
-After cloning the repo, install in development mode with the `dev` and `all` extra dependencies from local clone:
-
-```text
-$ pip install -e .[dev,all]
-```
-
-
-### Run tests
-
-```text
-$ pytest -vvv --cov=beatdrop --cov-report html tests/unit
-```

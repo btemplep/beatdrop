@@ -8,10 +8,10 @@ from beatdrop.schedulers.redis_scheduler import RedisScheduler
 
 @dataclass
 class CeleryRedisScheduler(RedisScheduler, CeleryScheduler):
-    """Hold scheduler entries in Redis, and send to Celery task queues.
+    """Hold schedule entries in Redis, and send to Celery task queues.
 
     Uses Redis to store schedule entries and scheduler state.
-    It is safe to run multiple ``RedisScheduler``s simultaneously, 
+    It is safe to run multiple ``CeleryRedisScheduler`` s simultaneously, 
     as well as have many that are used as clients to read/write entries.
 
     Parameters
@@ -32,6 +32,35 @@ class CeleryRedisScheduler(RedisScheduler, CeleryScheduler):
     redis_py_kwargs : Dict[str, Any]
         redis-py's ``redis.Redis()`` key word arguments. Some of the client configuration items may be overwritten.
         https://redis-py.readthedocs.io/en/stable/connections.html#generic-client
+    celery_app : celery.Celery
+        Celery app for sending tasks.
+
+    Example
+    -------
+    .. code-block:: python
+
+        from celery import Celery
+        from beatdrop import CeleryRedisScheduler
+
+        celery_app = Celery()
+        sched = CeleryRedisScheduler(
+            max_interval=60,
+            celery_app=celery_app,
+            lock_timeout=180,
+            redis_py_kwargs={
+                "host": "my.redis.host",
+                "port": 6379,
+                "db": 0,
+                "password": "mys3cr3t"
+            }
+        )
+        # use the scheduler as a client
+        entry_list = sched.list()
+        for entry in entry_list:
+            print(entry.key)
+
+        # or run it
+        sched.run()
     """
 
 

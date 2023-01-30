@@ -22,11 +22,11 @@ class IntervalEntry(ScheduleEntry):
     args : Optional[Tuple[Any, ...]]
         Positional arguments to pass the task. 
         These will be serialized/deserialized as JSON. 
-        To rehydrate complex types, subclass ``Args``. 
+        ``jsonpickle`` is used to serialize and deserialize these. 
     kwargs : Optional[Dict[str, Any]]
         Keyword arguments to pass the task. 
         These will be serialized/deserialized as JSON. 
-        To rehydrate complex types, subclass ``KwArgs``.
+        ``jsonpickle`` is used to serialize and deserialize these.
     period : datetime.timedelta
         How often to run the schedule entry.
     last_sent_at : datetime.datetime, optional

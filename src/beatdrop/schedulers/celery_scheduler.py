@@ -3,7 +3,6 @@ from importlib import import_module
 import pathlib
 from typing import Any
 
-import celery
 from pydantic.dataclasses import dataclass
 
 from beatdrop import messages
@@ -38,12 +37,21 @@ class CeleryScheduler(Scheduler):
         In general these entries are not held in non-volatile storage 
         so any metadata they hold will be lost if the scheduler fails.
         These entries are static.  The keys cannot be overwritten or deleted.
+    celery_app : celery.Celery
+        Celery app for sending tasks.
     """
 
     celery_app: Any
 
 
     def send(self, sched_entry: ScheduleEntry) -> None:
+        """Send a schedule entry to the Celery queue.
+
+        Parameters
+        ----------
+        sched_entry : ScheduleEntry
+            Schedule entry to send to the Celery queue.
+        """
         self._logger.debug(messages.sched_entry_sending_template.format(sched_entry))
         try:
             task_name = sched_entry.task

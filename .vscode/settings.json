@@ -21,6 +21,7 @@
         "Pickler",
         "pids",
         "pydantic",
+        "pytest",
         "pytz",
         "redislite",
         "Redlock",

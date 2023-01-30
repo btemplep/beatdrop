@@ -1,32 +1,36 @@
 
-class BeatDropError(Exception):
+class BeatdropError(Exception):
+    """Base Beatdrop error.
+    """
     pass
 
 
-class InvalidScheduleEntryType(BeatDropError):
+class MethodNotImplementedError(BeatdropError):
+    """The method called is not implemented.
+    """
     pass
 
 
-class MethodNotImplementedError(BeatDropError):
+class OverwriteDefaultEntryError(BeatdropError):
+    """A default entry was cannot be removed.
+    """
     pass
 
 
-class OverwriteDefaultEntryError(BeatDropError):
+class MaxRunIterations(BeatdropError):
+    """Exception raised when a scheduler has reached the max iterations.
+    """
     pass
 
 
-class SchedulerError(BeatDropError):
+class ScheduleEntryNotFound(BeatdropError):
+    """The given schedule entry was not found.
+    """
     pass
 
 
-class MaxRunIterations(BeatDropError):
-    pass
-
-
-class ScheduleEntryNotFound(BeatDropError):
-    pass
-
-
-class ScheduleEntryTypeNotRegistered(BeatDropError):
+class ScheduleEntryTypeNotRegistered(BeatdropError):
+    """The schedule entry type it not registered with the scheduler.
+    """
     pass
 

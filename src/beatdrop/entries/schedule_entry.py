@@ -15,8 +15,8 @@ class ScheduleEntry(BaseModel):
 
     All Schedule entries must implement the methods:
     
-    - ``due_in`` - returns timedelta until it should be run again.
-    - ``sent`` - called by the scheduler to let the entry know its task was sent for execution.
+    * ``due_in`` - returns timedelta until it should be run again.
+    * ``sent`` - called by the scheduler to let the entry know its task was sent for execution.
 
     See their docstrings for more details.
 
@@ -34,11 +34,11 @@ class ScheduleEntry(BaseModel):
     args : Optional[Tuple[Any, ...]]
         Positional arguments to pass the task. 
         These will be serialized/deserialized as JSON. 
-        To rehydrate complex types, subclass ``Args``. 
+        ``jsonpickle`` is used to serialize and deserialize these. 
     kwargs : Optional[Dict[str, Any]]
         Keyword arguments to pass the task. 
         These will be serialized/deserialized as JSON. 
-        To rehydrate complex types, subclass ``KwArgs``. 
+        ``jsonpickle`` is used to serialize and deserialize these. 
 
     Attributes
     ----------

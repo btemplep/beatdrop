@@ -21,7 +21,7 @@ from beatdrop import exceptions
 SQLBase = declarative_base()
 
 class SQLScheduleEntry(SQLBase):
-    """Table to hold scheduler entries in an SQL DB.
+    """Table to hold schedule entries in an SQL DB.
     
     - ``key_`` holds the scheduler entry key. 
     - ``json_`` holds the serialized JSON for the scheduler entry.
@@ -60,7 +60,7 @@ class SQLScheduleEntryList:
     page_size : int
         Page size for DB pagination
     default_sched_entries : List[ScheduleEntry]
-        Default scheduler entries that will be iterated over first.
+        Default schedule entries that will be iterated over first.
     session_maker : sessionmaker
         SQLAlchemy Session maker to query DB.
     entry_type_registry : EntryTypeRegistry
@@ -147,7 +147,7 @@ class SQLScheduleEntryList:
 
 @dataclass
 class SQLScheduler(SingletonLockScheduler):
-    """Hold scheduler entries in an SQL database. 
+    """Hold schedule entries in an SQL database. 
 
     Uses an SQL database to store schedule entries and scheduler state.
     It is safe to run multiple ``SQLScheduler``s simultaneously, 
