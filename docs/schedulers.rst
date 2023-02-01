@@ -1,7 +1,7 @@
 Schedulers
 ==========
 
-``beatdrop`` includes several *complete* schedulers (task and storage backends) as well as partial schedulers that act as building blocks. 
+``beatdrop`` includes several *complete* schedulers as well as partial schedulers that can be uses a building blocks.
 
 .. toctree::
    :maxdepth: 2

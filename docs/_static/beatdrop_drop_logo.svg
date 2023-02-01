@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="beatdrop_logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     showguides="false"
+     inkscape:zoom="0.77326038"
+     inkscape:cx="132.55561"
+     inkscape:cy="264.4646"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="554.41926"
+       y="17.550578"
+       width="471.91173"
+       height="410.49118"
+       id="rect170" />
+    <rect
+       x="108.22696"
+       y="201.13492"
+       width="347.47391"
+       height="312.04288"
+       id="rect305" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-25.974033,-48.863136)">
+    <rect
+       style="fill:#333333;stroke-width:0.264583"
+       id="rect249"
+       width="100"
+       height="100"
+       x="25.974033"
+       y="48.863136" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.1111px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';fill:#ececec;stroke-width:0.264583"
+       x="34.673527"
+       y="75.018089"
+       id="text228"><tspan
+         sodipodi:role="line"
+         id="tspan226"
+         style="font-size:14.1111px;stroke-width:0.264583"
+         x="34.673527"
+         y="75.018089">    /\ </tspan><tspan
+         sodipodi:role="line"
+         style="font-size:14.1111px;stroke-width:0.264583"
+         x="34.673527"
+         y="92.656975"
+         id="tspan230">   (__)</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:14.1111px;stroke-width:0.264583"
+         x="34.673527"
+         y="110.29587"
+         id="tspan232">,\.    ./,</tspan><tspan
+         sodipodi:role="line"
+         style="font-size:14.1111px;stroke-width:0.264583"
+         x="34.673527"
+         y="127.93475"
+         id="tspan234"> \ \  / / </tspan></text>
+  </g>
+</svg>

@@ -8,7 +8,7 @@ Install the base package with pip from pypi:
     $ pip install beatdrop
 
 
-For particular schedulers and backends you will also need to install their extra dependencies.
+For particular scheduler storage and  task backends, you will also need to install their extra dependencies.
 
 .. code-block:: console
 

@@ -2,14 +2,15 @@ Quickstart
 ==========
 
 
-There are 2 main pieces to using `beatdrop`.
+There are 2 main pieces to using ``beatdrop``.
 
-- Schedule Entry - Hold the task definition along with scheduling info.
+- Schedule Entry - holds the task definitions and scheduling info.
 
-- Schedulers - These perform 2 main roles.  
-    - They can be run as a scheduler ie monitor and send tasks to the task backend.
+- Schedulers - have 2 main roles 
+    - They can be run as a scheduler to monitor and send tasks to the task backend.
     - Act as clients for reading and writing schedule entries.
 
+A simple example that covers many use cases:
 
 .. code-block:: python
 

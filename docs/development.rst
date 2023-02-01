@@ -60,7 +60,9 @@ This will create a coverage report in ``./htmlcov``.  You can view the results b
 Documentation
 -------------
 
-All pieces of code that are a part of the public API should have docstrings in NumPy format (classes, methods, functions, etc.)
-When in doubt, reference other docstrings for similar items. 
+All code that is part of the public API should have docstrings in NumPy format (classes, methods, functions, etc.)
+When in doubt, reference other docstrings for similar what it should look like. 
 
 It's also encouraged to write docstrings for the non-public pieces as well. :)
+
+Schedulers and schedule entries should have their own page and be put under their respective toctree.
