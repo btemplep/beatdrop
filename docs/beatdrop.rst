@@ -1,5 +1,5 @@
-beatdrop package
-================
+beatdrop package contents
+=========================
 
 Subpackages
 -----------

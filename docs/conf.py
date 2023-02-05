@@ -53,7 +53,8 @@ autodoc_default_options = {
 
 html_theme = 'piccolo_theme'
 html_static_path = ['_static']
-html_logo = '_static/beatdrop_drop_logo.svg'
+html_logo = '_static/beatdrop_logo.svg'
+html_favicon = '_static/beatdrop_drop_logo.svg'
 html_theme_options = {
     "source_url": "https://github.com/btemplep/beatdrop"
 }

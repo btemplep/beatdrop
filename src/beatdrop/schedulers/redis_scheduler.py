@@ -124,7 +124,7 @@ class RedisScheduler(SingletonLockScheduler):
     """Hold schedule entries in a Redis. 
 
     Uses Redis to store schedule entries and scheduler state.
-    It is safe to run multiple ``RedisScheduler``s simultaneously, 
+    It is safe to run multiple ``RedisScheduler`` s simultaneously, 
     as well as have many that are used as clients to read/write entries.
 
     This scheduler does not implement the ``send`` method.

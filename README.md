@@ -1,8 +1,8 @@
 # `beatdrop`
 
-![beatdrop drop logo](./docs/_static/beatdrop_drop_logo.svg)
+![beatdrop drop logo](./docs/_static/beatdrop_logo.svg)
 
-The goal of `beatdrop` is to provide easy to use schedulers and schedule entries that are extensible, scalable, and backend agnostic. 
+The goal of `beatdrop` is to provide schedulers and schedule entries that are easy to use, extensible, scalable, and backend agnostic. 
 
 It **does not** run tasks or python functions on a schedule. It will simply interface with task backends to send tasks when they are due.
 
@@ -41,9 +41,9 @@ $ pip install beatdrop[all]
 
 There are 2 main pieces to using `beatdrop`.
 
-- Schedule Entry - Hold the task definition along with scheduling info.
+- Schedule Entry - holds the task definition along with scheduling info.
 
-- Schedulers - These perform 2 main roles.  
+- Schedulers - has 2 main functions.
     - They can be run as a scheduler ie monitor and send tasks to the task backend.
     - Act as clients for reading and writing schedule entries.
 

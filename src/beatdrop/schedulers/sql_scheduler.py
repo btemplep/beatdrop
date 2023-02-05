@@ -150,7 +150,7 @@ class SQLScheduler(SingletonLockScheduler):
     """Hold schedule entries in an SQL database. 
 
     Uses an SQL database to store schedule entries and scheduler state.
-    It is safe to run multiple ``SQLScheduler``s simultaneously, 
+    It is safe to run multiple ``SQLScheduler`` s simultaneously, 
     as well as have many that are purely used as clients to read/write entries.
 
     This scheduler does not implement the ``send`` method.
