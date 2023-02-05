@@ -8,11 +8,16 @@ from beatdrop.schedulers.sql_scheduler import SQLScheduler
 
 @dataclass
 class CelerySQLScheduler(SQLScheduler, CeleryScheduler):
-    """Hold scheduler entries in an SQL database, and send tasks to Celery queues.
+    """Hold schedule entries in an SQL database, and send tasks to Celery queues.
 
     Uses an SQL database to store schedule entries and scheduler state.
-    It is safe to run multiple ``SQLScheduler``s simultaneously, 
+    It is safe to run multiple ``CelerySQLScheduler`` s simultaneously, 
     as well as have many that are purely used as clients to read/write entries.
+
+    **NOTE** - You must also install the DB driver specified in the URL for ``create_engine_kwargs``.
+
+    **NOTE** - Before running the scheduler for the first time the 
+    DB tables must be created using ``create_tables()``.
 
     Parameters
     ----------
@@ -33,6 +38,32 @@ class CelerySQLScheduler(SQLScheduler, CeleryScheduler):
         Keyword arguments to pass to ``sqlalchemy.create_engine``.
         See SQLAlchemy docs for more info. 
         https://docs.sqlalchemy.org/en/14/core/engines.html#sqlalchemy.create_engine
+    celery_app : celery.Celery
+        Celery app for sending tasks.
+
+    Example
+    -------
+    .. code-block:: python
+
+        from celery import Celery
+        from beatdrop import CelerySQLScheduler
+
+        celery_app = Celery()
+        sched = CelerySQLScheduler(
+            max_interval=60,
+            celery_app=celery_app,
+            lock_timeout=180,
+            create_engine_kwargs={
+                "url": "sqlite:///my_sqlite.db"
+            }
+        )
+        # use the scheduler as a client
+        entry_list = sched.list()
+        for entry in entry_list:
+            print(entry.key)
+
+        # or run it
+        sched.run()
     """
 
 

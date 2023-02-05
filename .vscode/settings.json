@@ -3,6 +3,8 @@
     "cSpell.words": [
         "argnames",
         "argvalues",
+        "autoclass",
+        "automodule",
         "beatdrop",
         "caplog",
         "croniter",
@@ -18,9 +20,11 @@
         "jsonpickle",
         "loguru",
         "lrange",
+        "noindex",
         "Pickler",
         "pids",
         "pydantic",
+        "pytest",
         "pytz",
         "redislite",
         "Redlock",
@@ -33,6 +37,7 @@
         "timedelta",
         "timedeltas",
         "typer",
+        "undoc",
         "Unpickler"
     ]
 }

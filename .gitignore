@@ -8,3 +8,6 @@ htmlcov/
 unit_test_redis.rdb
 dist/
 build/
+docs/_build/
+docs/_static/beatdrop_logo.svg.*
+docs/_static/beatdrop__drop_logo.svg.*

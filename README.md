@@ -1,13 +1,15 @@
 # `beatdrop`
 
-The goal of `beatdrop` is to provide easy to use schedulers and schedule entries that are extensible, scalable, and backend agnostic. 
+![beatdrop drop logo](./docs/_static/beatdrop_logo.svg)
+
+The goal of `beatdrop` is to provide schedulers and schedule entries that are easy to use, extensible, scalable, and backend agnostic. 
 
 It **does not** run tasks or python functions on a schedule. It will simply interface with task backends to send tasks when they are due.
 
 
 ## Installation
 
-Install the base package with pip
+Install the base package with pip from PyPi https://pypi.org/project/beatdrop/.
 
 ```text
 $ pip install beatdrop
@@ -39,9 +41,9 @@ $ pip install beatdrop[all]
 
 There are 2 main pieces to using `beatdrop`.
 
-- Schedule Entry - Hold the task definition along with scheduling info.
+- Schedule Entry - holds the task definition along with scheduling info.
 
-- Schedulers - These perform 2 main roles.  
+- Schedulers - has 2 main functions.
     - They can be run as a scheduler ie monitor and send tasks to the task backend.
     - Act as clients for reading and writing schedule entries.
 
@@ -91,18 +93,3 @@ my_inter_entry = sched.get("my-interval-entry")
 sched.delete(inter)
 ```
 
-
-## Development
-
-After cloning the repo, install in development mode with the `dev` and `all` extra dependencies from local clone:
-
-```text
-$ pip install -e .[dev,all]
-```
-
-
-### Run tests
-
-```text
-$ pytest -vvv --cov=beatdrop --cov-report html tests/unit
-```

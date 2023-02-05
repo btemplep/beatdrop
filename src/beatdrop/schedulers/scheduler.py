@@ -33,11 +33,6 @@ class Scheduler:
 
     See the docs on the methods for more information.
 
-    Includes helper methods that should not need to change:
-
-    - ``dedict_entry``
-    - ``dejson_entry``
-
     Parameters
     ----------
     max_interval : datetime.timedelta
@@ -89,7 +84,7 @@ class Scheduler:
 
     
     def send(self, sched_entry: ScheduleEntry) -> None: 
-        """Send a schedule entry that is due.
+        """Send a schedule entry to the task backend.
 
         This should be used by the ``run`` method when a schedule is due.
         Subclasses can override this for common schedulers without changing the specifics of how a schedule runs.
@@ -101,7 +96,7 @@ class Scheduler:
         Parameters
         ----------
         sched_entry : ScheduleEntry
-            Schedule entry that is due and should be run.
+            Schedule entry that will be sent to the task backend.
 
         Raises
         ------

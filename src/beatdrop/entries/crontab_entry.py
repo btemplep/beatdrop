@@ -23,11 +23,11 @@ class CrontabEntry(ScheduleEntry):
     args : Optional[Tuple[Any, ...]]
         Positional arguments to pass the task. 
         These will be serialized/deserialized as JSON. 
-        To rehydrate complex types, subclass ``Args``. 
+        ``jsonpickle`` is used to serialize and deserialize these. 
     kwargs : Optional[Dict[str, Any]]
         Keyword arguments to pass the task. 
         These will be serialized/deserialized as JSON. 
-        To rehydrate complex types, subclass ``KwArgs``.
+        ``jsonpickle`` is used to serialize and deserialize these.
     cron_expression : str
         Crontab style date and time expression.
         ``croniter`` package is currently used as the parser. 
