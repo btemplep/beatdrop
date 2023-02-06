@@ -1,2 +1,3 @@
-include beatdrop/README.md
-include beatdrop/CHANGELOG.md
+include README.md
+include CHANGELOG.md
+include docs/_static/beatdrop_logo.svg

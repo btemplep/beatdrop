@@ -2,6 +2,8 @@
 
 ![beatdrop drop logo](./docs/_static/beatdrop_logo.svg)
 
+See the full [Documentation](https://docs.pythonbeatdrop.com/).
+
 The goal of `beatdrop` is to provide schedulers and schedule entries that are easy to use, extensible, scalable, and backend agnostic. 
 
 It **does not** run tasks or python functions on a schedule. It will simply interface with task backends to send tasks when they are due.
@@ -9,7 +11,7 @@ It **does not** run tasks or python functions on a schedule. It will simply inte
 
 ## Installation
 
-Install the base package with pip from PyPi https://pypi.org/project/beatdrop/.
+Install the base package with pip from [PyPi](https://pypi.org/project/beatdrop/).
 
 ```text
 $ pip install beatdrop
