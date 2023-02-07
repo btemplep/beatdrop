@@ -41,23 +41,44 @@ $ pip install beatdrop[all]
 
 ## Usage
 
-There are 2 main pieces to using `beatdrop`.
+There are 2 main pieces to using ``beatdrop``.
 
-- Schedule Entry - holds the task definition along with scheduling info.
+- Schedule Entry - holds the task definitions and scheduling info.
 
-- Schedulers - has 2 main functions.
-    - They can be run as a scheduler ie monitor and send tasks to the task backend.
+- Schedulers - have 2 main roles 
+    - They can be run as a scheduler to monitor and send tasks to the task backend.
     - Act as clients for reading and writing schedule entries.
 
-
-Simple example:
+To run the scheduler simply make a python file, create the scheduler and call the run method:
 
 ```python
+from beatdrop import CeleryRedisScheduler
 
+from my_app import celery_app
+
+
+sched = CeleryRedisScheduler(
+    max_interval=60,
+    celery_app=celery_app,
+    lock_timeout=180,
+    redis_py_kwargs={
+        "host": "my.redis.host",
+        "port": 6379,
+        "db": 0,
+        "password": "mys3cr3t"
+    }
+)
+sched.run()
+```
+
+
+To use the scheduler as a client, you create the scheduler the same as you would to run it:
+
+```python
 from beatdrop import CeleryRedisScheduler, IntervalEntry
-from celery import Celery
 
-celery_app = Celery()
+from my_app import celery_app
+
 
 # Create a scheduler
 sched = CeleryRedisScheduler(
@@ -94,4 +115,3 @@ my_inter_entry = sched.get("my-interval-entry")
 # Delete an entry from the scheduler
 sched.delete(inter)
 ```
-
