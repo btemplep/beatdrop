@@ -6,7 +6,10 @@ from beatdrop.schedulers.celery_scheduler import CeleryScheduler
 from beatdrop.schedulers.sql_scheduler import SQLScheduler
 
 
-@dataclass
+class Config:
+    arbitrary_types_allowed = True
+
+@dataclass(config=Config)
 class CelerySQLScheduler(SQLScheduler, CeleryScheduler):
     """Hold schedule entries in an SQL database, and send tasks to Celery queues.
 

@@ -7,7 +7,6 @@ import celery
 import pytest
 import redislite
 
-from beatdrop import messages
 from beatdrop.entries import IntervalEntry
 from beatdrop.schedulers import CeleryScheduler
 

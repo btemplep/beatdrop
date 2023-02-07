@@ -1,20 +1,17 @@
 
-from importlib import import_module
-import pathlib
+from typing import Any
 
-import celery
+import rq
 from pydantic.dataclasses import dataclass
 
 from beatdrop import messages
-from beatdrop.entries.schedule_entry import ScheduleEntry
 from beatdrop.schedulers.scheduler import Scheduler
+from beatdrop.entries.schedule_entry import ScheduleEntry
 
-class Config:
-    arbitrary_types_allowed = True
 
-@dataclass(config=Config)
-class CeleryScheduler(Scheduler):
-    """Implementation for sending celery tasks.
+@dataclass
+class RQScheduler(Scheduler):
+    """Implementation for sending RQ (Redis Queue) tasks.
 
     Combine as a second base class to be able to send tasks to Celery queues.
 
@@ -22,9 +19,9 @@ class CeleryScheduler(Scheduler):
 
     .. code-block:: python
 
-        from beatdrop.schedulers import CeleryScheduler, SQLScheduler
+        from beatdrop.schedulers import RQScheduler, SQLScheduler
 
-        class CelerySQLScheduler(SQLScheduler, CeleryScheduler):
+        class RQSQLScheduler(SQLScheduler, RQScheduler):
             pass
 
     Parameters
@@ -39,31 +36,23 @@ class CeleryScheduler(Scheduler):
         In general these entries are not held in non-volatile storage 
         so any metadata they hold will be lost if the scheduler fails.
         These entries are static.  The keys cannot be overwritten or deleted.
-    celery_app : celery.Celery
-        Celery app for sending tasks.
+    rq_queue : rq.Queue
+        RQ Queue to send tasks to.
     """
 
-    celery_app: celery.Celery
+    rq_queue: rq.Queue
 
 
     def send(self, sched_entry: ScheduleEntry) -> None:
-        """Send a schedule entry to the Celery queue.
+        """Send a schedule entry to the RQ queue.
 
         Parameters
         ----------
         sched_entry : ScheduleEntry
-            Schedule entry to send to the Celery queue.
+            Schedule entry to send to the RQ queue.
         """
-        self._logger.debug(messages.sched_entry_sending_template.format(sched_entry))
         try:
-            task_name = sched_entry.task
-            if task_name.startswith("__main__"):
-                main_module = import_module("__main__")
-                task_name = sched_entry.task.replace(
-                    "__main__", 
-                    pathlib.Path(main_module.__file__).name.split(".")[0]
-                )
-            
+            self._logger.debug(messages.sched_entry_sending_template.format(sched_entry))
             task_args = sched_entry.args
             task_kwargs = sched_entry.kwargs
             if task_args is None:
@@ -72,12 +61,8 @@ class CeleryScheduler(Scheduler):
             if task_kwargs is None:
                 task_kwargs = {}
             
-            if task_name in self.celery_app.tasks:
-                self.celery_app.tasks[task_name].delay(*task_args, **task_kwargs)
-                self._logger.info(messages.sched_entry_sent_template.format(sched_entry))
-            else:
-                self._logger.error("Could not find Celery task {} for entry {}".format(task_name, sched_entry))
-
+            self.rq_queue.enqueue(sched_entry.task, args=task_args, kwargs=task_kwargs)
+            self._logger.info(messages.sched_entry_sent_template.format(sched_entry))
         except Exception as error:
             self._logger.error(
                 "Failed to send entry: {}. Check that the Celery app is initialized and the function is registered as a task. {}: {}".format(
@@ -86,6 +71,3 @@ class CeleryScheduler(Scheduler):
                     error
                 )
             )
-
-
-

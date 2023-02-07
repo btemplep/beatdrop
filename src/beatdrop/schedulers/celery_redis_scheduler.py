@@ -6,7 +6,10 @@ from beatdrop.schedulers.celery_scheduler import CeleryScheduler
 from beatdrop.schedulers.redis_scheduler import RedisScheduler
 
 
-@dataclass
+class Config:
+    arbitrary_types_allowed = True
+
+@dataclass(config=Config)
 class CeleryRedisScheduler(RedisScheduler, CeleryScheduler):
     """Hold schedule entries in Redis, and send to Celery task queues.
 
