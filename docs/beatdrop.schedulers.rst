@@ -89,6 +89,58 @@ beatdrop.schedulers.redis\_scheduler module
    :undoc-members:
    :show-inheritance:
 
+
+beatdrop.schedulers.rq\_redis\_scheduler module
+---------------------------------------------------
+
+.. automodule:: beatdrop.schedulers.rq_redis_scheduler
+   :members:
+   :exclude-members: RQRedisScheduler
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: beatdrop.schedulers.rq_redis_scheduler.RQRedisScheduler
+   :members:
+   :inherited-members:
+   :exclude-members: __init__
+   :noindex:
+   :undoc-members:
+   :show-inheritance:
+
+beatdrop.schedulers.rq\_scheduler module
+--------------------------------------------
+
+.. automodule:: beatdrop.schedulers.rq_scheduler
+   :members:
+   :exclude-members: RQScheduler
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: beatdrop.schedulers.rq_scheduler.RQScheduler
+   :members:
+   :inherited-members:
+   :exclude-members: __init__
+   :noindex:
+   :undoc-members:
+   :show-inheritance:
+
+beatdrop.schedulers.rq\_sql\_scheduler module
+-------------------------------------------------
+
+.. automodule:: beatdrop.schedulers.rq_sql_scheduler
+   :members:
+   :exclude-members: RQSQLScheduler
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: beatdrop.schedulers.rq_sql_scheduler.RQSQLScheduler
+   :members:
+   :inherited-members:
+   :exclude-members: __init__
+   :noindex:
+   :undoc-members:
+   :show-inheritance:
+
 beatdrop.schedulers.scheduler module
 ------------------------------------
 

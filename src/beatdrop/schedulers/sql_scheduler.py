@@ -514,7 +514,7 @@ class SQLScheduler(SingletonLockScheduler):
             session.commit()
 
 
-    def create_tables(self):
+    def create_tables(self) -> None:
         """Create DB tables for the schedule entries.
         """
         SQLScheduleEntry.__table__.create(self._engine)
