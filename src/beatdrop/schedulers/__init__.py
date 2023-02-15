@@ -45,4 +45,15 @@ try:
     __all__.append("CelerySQLScheduler")
 except ModuleNotFoundError as error: # pragma: no cover
     pass
+try:
+    from beatdrop.schedulers.rq_redis_scheduler import RQRedisScheduler
+    __all__.append("RQRedisScheduler")
+except ModuleNotFoundError as error: # pragma: no cover
+    pass 
+try:
+    from beatdrop.schedulers.rq_sql_scheduler import RQSQLScheduler
+    __all__.append("RQSQLScheduler")
+except ModuleNotFoundError as error: # pragma: no cover
+    pass 
+
 

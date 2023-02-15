@@ -9,11 +9,14 @@ from beatdrop.schedulers.scheduler import Scheduler
 from beatdrop.entries.schedule_entry import ScheduleEntry
 
 
-@dataclass
+class Config:
+    arbitrary_types_allowed = True
+
+@dataclass(config=Config)
 class RQScheduler(Scheduler):
     """Implementation for sending RQ (Redis Queue) tasks.
 
-    Combine as a second base class to be able to send tasks to Celery queues.
+    Combine as a second base class to be able to send tasks to RQ queues.
 
     Example:
 
@@ -65,7 +68,7 @@ class RQScheduler(Scheduler):
             self._logger.info(messages.sched_entry_sent_template.format(sched_entry))
         except Exception as error:
             self._logger.error(
-                "Failed to send entry: {}. Check that the Celery app is initialized and the function is registered as a task. {}: {}".format(
+                "Failed to send entry: {}. {}: {}".format(
                     sched_entry,
                     type(error).__name__, 
                     error
