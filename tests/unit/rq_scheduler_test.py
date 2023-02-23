@@ -3,22 +3,11 @@ import datetime
 from unittest.mock import MagicMock
 
 import pytest
-import redis
-import redislite
 import rq
 
 from beatdrop.entries import IntervalEntry
 from beatdrop.schedulers import RQScheduler
 
-
-@pytest.fixture(scope="function")
-def rq_queue(rdb: redislite.Redis) -> rq.Queue:
-    return rq.Queue(
-        connection=redis.Redis(
-            unix_socket_path=rdb.socket_file,
-            db=0
-        )
-    )
 
 @pytest.fixture
 def rq_task() -> str:

@@ -1,6 +1,6 @@
 # `beatdrop`
 
-![beatdrop drop logo](./docs/_static/beatdrop_logo.svg)
+![](https://github.com/btemplep/beatdrop/raw/main/docs/_static/beatdrop_logo.svg)
 
 See the full [Documentation](https://docs.pythonbeatdrop.com/).
 

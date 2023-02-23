@@ -11,11 +11,6 @@ from beatdrop.entries import IntervalEntry
 from beatdrop.schedulers import CeleryScheduler
 
 
-@pytest.fixture(scope="function")
-def celery_app(rdb: redislite.Redis) -> celery.Celery:
-    return celery.Celery("tester", broker="redis+socket://{}?db=0".format(rdb.socket_file))
-
-
 @pytest.fixture
 def celery_task(celery_app: celery.Celery) -> str:
     @celery_app.task

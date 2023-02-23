@@ -4,31 +4,10 @@ from typing import Callable, List
 from unittest.mock import MagicMock
 
 import pytest
-from redislite import Redis
 
 from beatdrop.schedulers import RedisScheduler
 from beatdrop.entries import IntervalEntry, ScheduleEntry
 from beatdrop import entries, exceptions, messages
-
-
-@pytest.fixture(scope="function")
-def redis_scheduler(
-    max_interval: datetime.timedelta,
-    lock_timeout: datetime.timedelta,
-    default_entries: List[ScheduleEntry],
-    rdb: Redis
-) -> RedisScheduler:
-    redis_sched =  RedisScheduler(
-        max_interval=max_interval,
-        default_sched_entries=default_entries,
-        lock_timeout=lock_timeout,
-        redis_py_kwargs={
-            "unix_socket_path": rdb.socket_file
-        }
-    )
-    redis_sched.send = MagicMock(return_value=None)
-
-    return redis_sched
 
 
 @pytest.fixture
