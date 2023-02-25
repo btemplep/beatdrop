@@ -1,15 +1,23 @@
 
 import datetime
+from pathlib import Path
 from typing import Callable, List
-from unittest.mock import call
+from unittest.mock import call, MagicMock
 
+import celery
 from loguru import logger
 import pytest
 import pytz
+from redis import Redis
 import redislite
+import rq
 
 from beatdrop import entries
 from beatdrop.schedulers import Scheduler
+from beatdrop import \
+    ScheduleEntry, \
+    RedisScheduler, \
+    SQLScheduler
 
 
 @pytest.fixture
@@ -169,3 +177,62 @@ def run_sched_run_tests(scheduler: Scheduler) -> None:
 @pytest.fixture
 def scheduler_run_tests() -> Callable:
     return run_sched_run_tests
+
+
+@pytest.fixture(scope="function")
+def celery_app(rdb: redislite.Redis) -> celery.Celery:
+    return celery.Celery("tester", broker="redis+socket://{}?db=0".format(rdb.socket_file))
+
+
+@pytest.fixture(scope="function")
+def redis_scheduler(
+    max_interval: datetime.timedelta,
+    lock_timeout: datetime.timedelta,
+    default_entries: List[ScheduleEntry],
+    rdb: Redis
+) -> RedisScheduler:
+    redis_sched =  RedisScheduler(
+        max_interval=max_interval,
+        default_sched_entries=default_entries,
+        lock_timeout=lock_timeout,
+        redis_py_kwargs={
+            "unix_socket_path": rdb.socket_file
+        }
+    )
+    redis_sched.send = MagicMock(return_value=None)
+
+    return redis_sched
+
+
+@pytest.fixture
+def sql_scheduler(
+    max_interval: datetime.timedelta,
+    lock_timeout: datetime.timedelta,
+    default_entries: List[entries.ScheduleEntry]
+) -> SQLScheduler:
+    test_db_path = Path("./unit_test.sqlite").resolve()
+    sql_sched =  SQLScheduler(
+        max_interval=max_interval,
+        default_sched_entries=default_entries,
+        lock_timeout=lock_timeout,
+        create_engine_kwargs={
+            "url": "sqlite:///{}".format(test_db_path)
+        }
+    )
+    sql_sched.send = MagicMock(return_value=None)
+    sql_sched.create_tables()
+
+    yield sql_sched
+
+    test_db_path.unlink()
+
+
+@pytest.fixture(scope="function")
+def rq_queue(rdb: redislite.Redis) -> rq.Queue:
+    return rq.Queue(
+        connection=Redis(
+            unix_socket_path=rdb.socket_file,
+            db=0
+        )
+    )
+

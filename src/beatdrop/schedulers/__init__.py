@@ -2,8 +2,7 @@
 __all__ = [
     "Scheduler",
     "SingletonLockScheduler",
-    "MemScheduler",
-    "CeleryScheduler"
+    "MemScheduler"
 ]
 
 # Base Schedulers with different features
@@ -29,6 +28,11 @@ try:
     __all__.append("CeleryScheduler")
 except ModuleNotFoundError as error: # pragma: no cover
     pass
+try:
+    from beatdrop.schedulers.rq_scheduler import RQScheduler
+    __all__.append("RQScheduler")
+except ModuleNotFoundError as error: # pragma: no cover
+    pass
 
 # Complete Schedulers
 try:
@@ -41,4 +45,15 @@ try:
     __all__.append("CelerySQLScheduler")
 except ModuleNotFoundError as error: # pragma: no cover
     pass
+try:
+    from beatdrop.schedulers.rq_redis_scheduler import RQRedisScheduler
+    __all__.append("RQRedisScheduler")
+except ModuleNotFoundError as error: # pragma: no cover
+    pass 
+try:
+    from beatdrop.schedulers.rq_sql_scheduler import RQSQLScheduler
+    __all__.append("RQSQLScheduler")
+except ModuleNotFoundError as error: # pragma: no cover
+    pass 
+
 

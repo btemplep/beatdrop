@@ -7,31 +7,8 @@ from unittest.mock import MagicMock
 import pytest
 
 from beatdrop import entries, messages, exceptions
-from beatdrop.entries import IntervalEntry, ScheduleEntry
+from beatdrop.entries import IntervalEntry
 from beatdrop.schedulers.sql_scheduler import SQLScheduler, SQLScheduleEntry, SQLSchedulerLock
-
-
-@pytest.fixture
-def sql_scheduler(
-    max_interval: datetime.timedelta,
-    lock_timeout: datetime.timedelta,
-    default_entries: List[entries.ScheduleEntry]
-) -> SQLScheduler:
-    test_db_path = Path("./unit_test.sqlite").resolve()
-    sql_sched =  SQLScheduler(
-        max_interval=max_interval,
-        default_sched_entries=default_entries,
-        lock_timeout=lock_timeout,
-        create_engine_kwargs={
-            "url": "sqlite:///{}".format(test_db_path)
-        }
-    )
-    sql_sched.send = MagicMock(return_value=None)
-    sql_sched.create_tables()
-
-    yield sql_sched
-
-    test_db_path.unlink()
 
 
 @pytest.fixture

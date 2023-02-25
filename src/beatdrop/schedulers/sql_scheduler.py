@@ -5,7 +5,7 @@ import json
 import time
 from typing import Any, Dict, List, Optional
 
-from pydantic import validator
+from pydantic import Field, validator
 from pydantic.dataclasses import dataclass
 import sqlalchemy
 from sqlalchemy.orm import declarative_base, sessionmaker
@@ -144,7 +144,6 @@ class SQLScheduleEntryList:
         self._db_page_iter = iter(results)
 
 
-
 @dataclass
 class SQLScheduler(SingletonLockScheduler):
     """Hold schedule entries in an SQL database. 
@@ -178,7 +177,7 @@ class SQLScheduler(SingletonLockScheduler):
         https://docs.sqlalchemy.org/en/14/core/engines.html#sqlalchemy.create_engine
     """
 
-    create_engine_kwargs: Dict[str, Any]
+    create_engine_kwargs: Dict[str, Any] = Field()
 
 
     def __post_init_post_parse__(self) -> None:
@@ -514,7 +513,7 @@ class SQLScheduler(SingletonLockScheduler):
             session.commit()
 
 
-    def create_tables(self):
+    def create_tables(self) -> None:
         """Create DB tables for the schedule entries.
         """
         SQLScheduleEntry.__table__.create(self._engine)
@@ -529,6 +528,4 @@ class SQLScheduler(SingletonLockScheduler):
             raise ValueError("'url' must be passed as an engine kwarg")
 
         return v
-   
 
-    

@@ -2,7 +2,7 @@
 
 from pydantic.dataclasses import dataclass
 
-from beatdrop.schedulers.celery_scheduler import CeleryScheduler
+from beatdrop.schedulers.rq_scheduler import RQScheduler
 from beatdrop.schedulers.sql_scheduler import SQLScheduler
 
 
@@ -10,17 +10,18 @@ class Config:
     arbitrary_types_allowed = True
 
 @dataclass(config=Config)
-class CelerySQLScheduler(SQLScheduler, CeleryScheduler):
-    """Hold schedule entries in an SQL database, and send tasks to Celery queues.
+class RQSQLScheduler(SQLScheduler, RQScheduler):
+    """Hold schedule entries in an SQL database, and send to RQ (Redis Queue) task queues.
 
     Uses an SQL database to store schedule entries and scheduler state.
-    It is safe to run multiple ``CelerySQLScheduler`` s simultaneously, 
+    It is safe to run multiple ``RQSQLScheduler`` s simultaneously, 
     as well as have many that are purely used as clients to read/write entries.
 
     **NOTE** - You must also install the DB driver specified in the URL for ``create_engine_kwargs``.
 
     **NOTE** - Before running the scheduler for the first time the 
     DB tables must be created using ``create_tables()``.
+
 
     Parameters
     ----------
@@ -34,27 +35,27 @@ class CelerySQLScheduler(SQLScheduler, CeleryScheduler):
         In general these entries are not held in non-volatile storage 
         so any metadata they hold will be lost if the scheduler fails.
         These entries are static.  The keys cannot be overwritten or deleted.
-    lock_timeout: datetime.timedelta
+    lock_timeout : datetime.timedelta
         The time a scheduler does not refresh the scheduler lock before it is considered dead. 
         Should be at least 3 times the ``max_interval``.
     create_engine_kwargs: dict
         Keyword arguments to pass to ``sqlalchemy.create_engine``.
         See SQLAlchemy docs for more info. 
         https://docs.sqlalchemy.org/en/14/core/engines.html#sqlalchemy.create_engine
-    celery_app : celery.Celery
-        Celery app for sending tasks.
+    rq_queue : rq.Queue
+        RQ Queue to send tasks to.
 
     Example
     -------
     .. code-block:: python
 
-        from celery import Celery
-        from beatdrop import CelerySQLScheduler
+        from rq import Queue
+        from beatdrop import RQSQLScheduler
 
-        celery_app = Celery()
-        sched = CelerySQLScheduler(
+        rq_queue = Queue()
+        sched = RQSQLScheduler(
             max_interval=60,
-            celery_app=celery_app,
+            rq_queue=rq_queue,
             lock_timeout=180,
             create_engine_kwargs={
                 "url": "sqlite:///my_sqlite.db"
@@ -68,6 +69,3 @@ class CelerySQLScheduler(SQLScheduler, CeleryScheduler):
         # or run it
         sched.run()
     """
-
-
-    

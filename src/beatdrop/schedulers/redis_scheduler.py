@@ -6,6 +6,7 @@ import time
 from typing import Any, Dict, List, Optional
 
 import pottery
+from pydantic import Field
 from pydantic.dataclasses import dataclass
 from redis import Redis
 
@@ -151,7 +152,7 @@ class RedisScheduler(SingletonLockScheduler):
         https://redis-py.readthedocs.io/en/stable/connections.html#generic-client
     """
 
-    redis_py_kwargs: Dict[str, Any]
+    redis_py_kwargs: Dict[str, Any] = Field()
 
 
     def __post_init_post_parse__(self) -> None:

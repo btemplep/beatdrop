@@ -22,6 +22,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security 
 -->
 
+## [0.1.0a7] - 2023-02-25
+
+### Fixed
+    - tests 
+    - docs
+
+
+## [0.1.0a6] - 2023-02-22
+
+### Added
+
+- `RQScheduler` - Building block scheduler for the RQ (Redis Queue) task backend.
+- `RQRedisScheduler` - Complete scheduler with RQ task backend and redis entry storage.
+- `RQSQLScheduler` - Complete scheduler with RQ task backend and SQL DB entry storage.
+
+### Fixed
+
+- PYPI logo
+
 ## [0.1.0a5] - 2023-02-06
 
 ### Fixed

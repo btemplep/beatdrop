@@ -28,6 +28,7 @@
         "pytz",
         "redislite",
         "Redlock",
+        "RQSQL",
         "sched",
         "sess",
         "sessionmaker",

@@ -6,6 +6,7 @@ Development
 
 If you are interested in contributing to beatdrop, this is the place to start!
 
+
 Setting up the Dev Environment
 ------------------------------
 
@@ -34,6 +35,34 @@ Install the local package in editable mode with the ``all`` and ``dev`` extra de
 
     (venv)$ pip install -e .[dev,all]
 
+If you use pyenv to manage python environments you can install all the recommended python versions with:
+
+.. code-block:: console
+
+    $ pyenv install
+
+Nox
+---
+
+Nox can be used for several pieces of automation.  You can see what options are available with 
+
+.. code-block:: console
+
+    $ nox --list
+
+
+pyenv
+-----
+
+To run the tests for multiple python environments they must be available.  
+I would recommend using `pyenv <https://github.com/pyenv/pyenv>`_ for this. 
+The python versions recommend are held in the ``.python-version`` file.
+If you use pyenv, you can install the python versions that nox will test with using the following command in the root directory:
+
+.. code-block:: console
+
+    $ pyenv install
+
 
 Tests
 -----
@@ -48,7 +77,7 @@ Strive for 100% coverage in all tests.  Try to test as many scenarios and edge c
 Any new additions are expected to come with full testing.  
 The same is expected for fixed bugs.  There should be tests that cover the scenario in order to avoid regression. 
 
-The unit test can be run from the project root directory:
+The unit test can be run from the project root directory with manually with (this saves time over nox):
 
 .. code-block:: console
 
@@ -66,3 +95,4 @@ When in doubt, reference other docstrings for similar what it should look like.
 It's also encouraged to write docstrings for the non-public pieces as well. :)
 
 Schedulers and schedule entries should have their own page and be put under their respective toctree.
+

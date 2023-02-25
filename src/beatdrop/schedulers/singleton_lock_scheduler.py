@@ -3,7 +3,7 @@ import datetime
 from typing import Optional
 
 from pydantic.dataclasses import dataclass
-from pydantic import root_validator
+from pydantic import Field, root_validator
 
 from beatdrop.schedulers.scheduler import Scheduler
 from beatdrop import exceptions
@@ -34,7 +34,7 @@ class SingletonLockScheduler(Scheduler):
         Should be at least 3 times the ``max_interval``.
     """
 
-    lock_timeout: datetime.timedelta
+    lock_timeout: datetime.timedelta = Field()
    
 
     @root_validator

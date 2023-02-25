@@ -9,5 +9,6 @@ They have a naming convention of ``<TaskBackEnd><EntryStorage>Scheduler``
 
    celery_redis_scheduler
    celery_sql_scheduler
-
+   rq_redis_scheduler
+   rq_sql_scheduler
 
