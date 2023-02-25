@@ -3,6 +3,7 @@ from importlib import import_module
 import pathlib
 
 import celery
+from pydantic import Field
 from pydantic.dataclasses import dataclass
 
 from beatdrop import messages
@@ -43,7 +44,7 @@ class CeleryScheduler(Scheduler):
         Celery app for sending tasks.
     """
 
-    celery_app: celery.Celery
+    celery_app: celery.Celery = Field()
 
 
     def send(self, sched_entry: ScheduleEntry) -> None:

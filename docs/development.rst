@@ -34,6 +34,12 @@ Install the local package in editable mode with the ``all`` and ``dev`` extra de
 
     (venv)$ pip install -e .[dev,all]
 
+If you use pyenv to manage python environments you can install all the recommended python versions with:
+
+.. code-block:: console
+
+    $ pyenv install
+
 
 Tests
 -----
@@ -55,6 +61,8 @@ The unit test can be run from the project root directory:
     (venv)$ pytest -vvv --cov=src/beatdrop --cov-report html tests/unit
 
 This will create a coverage report in ``./htmlcov``.  You can view the results by opening ``./htmlcov/index.html``.
+
+
 
 
 Documentation

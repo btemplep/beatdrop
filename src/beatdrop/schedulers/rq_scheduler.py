@@ -2,6 +2,7 @@
 from typing import Any
 
 import rq
+from pydantic import Field
 from pydantic.dataclasses import dataclass
 
 from beatdrop import messages
@@ -43,7 +44,7 @@ class RQScheduler(Scheduler):
         RQ Queue to send tasks to.
     """
 
-    rq_queue: rq.Queue
+    rq_queue: rq.Queue = Field()
 
 
     def send(self, sched_entry: ScheduleEntry) -> None:
