@@ -19,6 +19,8 @@ Extra dependencies for task backends:
 
 - ``celery`` 
 
+- ``rq``
+
 Extra dependencies for scheduler storage:
 
 - ``redis``

@@ -6,10 +6,13 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import beatdrop
+
 project = 'beatdrop'
 copyright = '2023, Brandon Temple Paul'
 author = 'Brandon Temple Paul'
-release = '0.1.0a3'
+release = beatdrop.__version__
+version = beatdrop.__version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

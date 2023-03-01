@@ -44,7 +44,8 @@ If you use pyenv to manage python environments you can install all the recommend
 Nox
 ---
 
-Nox can be used for several pieces of automation.  You can see what options are available with 
+Nox can be used for several pieces of automation and to generally help with development. 
+You can see what options are available with 
 
 .. code-block:: console
 
