@@ -22,11 +22,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security 
 -->
 
+## [0.1.0a8] - 2024-02-19
+
+### Fixed
+- pydantic less than 2
+- deprecations for use of `datetime.datetime.utcnow()`
+
+### Removed
+- support for python 3.7
+
+
 ## [0.1.0a7] - 2023-02-25
 
 ### Fixed
-    - tests 
-    - docs
+- tests 
+- docs
 
 
 ## [0.1.0a6] - 2023-02-22

@@ -6,6 +6,7 @@ import pytest
 import pytz
 
 from beatdrop.entries import EventEntry
+from beatdrop.helpers import utc_now_naive
 
 @pytest.fixture(
     params=[False, True],
@@ -18,9 +19,9 @@ def event_entry(
     test_kwargs: dict
 ) -> EventEntry:
     if request.param:
-        due_at = pytz.utc.localize(datetime.datetime.utcnow()).astimezone(pytz.timezone("us/eastern"))
+        due_at = pytz.utc.localize(utc_now_naive()).astimezone(pytz.timezone("us/eastern"))
     else:
-        due_at = datetime.datetime.utcnow()
+        due_at = utc_now_naive()
 
     return EventEntry(
         key="new_entry",

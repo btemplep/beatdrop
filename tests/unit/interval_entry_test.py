@@ -4,6 +4,7 @@ import datetime
 import pytest
 import pytz
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop.entries import IntervalEntry
 
 period = 30
@@ -67,5 +68,5 @@ def test_sent(interval_entry: IntervalEntry) -> None:
 
 def test_bad_last_sent_at(interval_entry: IntervalEntry) -> None:
     with pytest.raises(ValueError):
-        interval_entry.last_sent_at = pytz.utc.localize(datetime.datetime.utcnow()).astimezone(pytz.timezone("us/eastern"))
+        interval_entry.last_sent_at = pytz.utc.localize(utc_now_naive()).astimezone(pytz.timezone("us/eastern"))
 

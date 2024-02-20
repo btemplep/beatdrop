@@ -5,6 +5,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop.schedulers import RedisScheduler
 from beatdrop.entries import IntervalEntry, ScheduleEntry
 from beatdrop import entries, exceptions, messages
@@ -61,7 +62,7 @@ def test_save(
     entry = redis_scheduler._entry_type_registry.dejson_entry(entry_json)
     assert entry == interval_entry
     new_period = datetime.timedelta(seconds=100)
-    new_last_sent_at = datetime.datetime.utcnow()
+    new_last_sent_at = utc_now_naive()
     entry.period = new_period
     entry.last_sent_at = new_last_sent_at
     redis_scheduler.save(entry)
@@ -199,9 +200,9 @@ def test__acquire_lock(
     redis_scheduler._acquire_lock()
     assert redis_scheduler._scheduler_lock.locked() > 0
     assert redis_scheduler2._scheduler_lock.acquire(timeout=.1) == False
-    before = datetime.datetime.utcnow()
+    before = utc_now_naive()
     redis_scheduler2._acquire_lock()
-    after = datetime.datetime.utcnow()
+    after = utc_now_naive()
     acquired_after = after - before
     assert acquired_after > redis_scheduler.max_interval
     assert acquired_after < (redis_scheduler.lock_timeout + redis_scheduler.max_interval)

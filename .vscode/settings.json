@@ -26,6 +26,7 @@
         "lrange",
         "maxdepth",
         "modindex",
+        "multiprocess",
         "noindex",
         "Pickler",
         "pids",

@@ -12,6 +12,7 @@ from redis import Redis
 import redislite
 import rq
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop import entries
 from beatdrop.schedulers import Scheduler
 from beatdrop import \
@@ -48,8 +49,8 @@ def test_args() -> tuple:
         5,
         6.7,
         "string",
-        datetime.datetime.utcnow(),
-        pytz.utc.localize(datetime.datetime.utcnow()).astimezone(pytz.timezone("us/eastern"))
+        utc_now_naive(),
+        pytz.utc.localize(utc_now_naive()).astimezone(pytz.timezone("us/eastern"))
     )
 
 
@@ -59,8 +60,8 @@ def test_kwargs() -> dict:
         "int": 5,
         "float": 6.7,
         "string": "string",
-        "dt_naive": datetime.datetime.utcnow(),
-        "dt_aware": pytz.utc.localize(datetime.datetime.utcnow()).astimezone(pytz.timezone("us/eastern"))
+        "dt_naive": utc_now_naive(),
+        "dt_aware": pytz.utc.localize(utc_now_naive()).astimezone(pytz.timezone("us/eastern"))
     }
 
 
@@ -109,7 +110,7 @@ def default_entries(
             task=test_task,
             args=test_args,
             kwargs=test_kwargs,
-            due_at=datetime.datetime.utcnow() + datetime.timedelta(seconds=120)
+            due_at=utc_now_naive() + datetime.timedelta(seconds=120)
         ),
         entries.EventEntry(
             key="my_event_due",
@@ -117,7 +118,7 @@ def default_entries(
             task=test_task,
             args=test_args,
             kwargs=test_kwargs,
-            due_at=datetime.datetime.utcnow()
+            due_at=utc_now_naive()
         ),
         entries.CrontabEntry(
             key="my_cron",
@@ -134,7 +135,7 @@ def default_entries(
             args=test_args,
             kwargs=test_kwargs,
             cron_expression="*/1 * * * *",
-            last_sent_at=datetime.datetime.utcnow() - datetime.timedelta(seconds=120)
+            last_sent_at=utc_now_naive() - datetime.timedelta(seconds=120)
         ),
         entries.CrontabTZEntry(
             key="my_cron_tz",
@@ -153,7 +154,7 @@ def default_entries(
             kwargs=test_kwargs,
             cron_expression="*/1 * * * *",
             timezone="us/eastern",
-            last_sent_at=datetime.datetime.utcnow() - datetime.timedelta(seconds=120)
+            last_sent_at=utc_now_naive() - datetime.timedelta(seconds=120)
         )
     ]
 

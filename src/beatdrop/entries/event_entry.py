@@ -4,6 +4,7 @@ from typing import ClassVar, List
 
 import pytz
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop.entries.schedule_entry import ScheduleEntry
 
 
@@ -61,7 +62,7 @@ class EventEntry(ScheduleEntry):
             naive_due_at_utc = self.due_at.astimezone(pytz.utc).replace(tzinfo=None)
             print(naive_due_at_utc)
 
-        return naive_due_at_utc - datetime.datetime.utcnow()
+        return naive_due_at_utc - utc_now_naive()
 
     
     def sent(self):

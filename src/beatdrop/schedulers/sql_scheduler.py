@@ -1,6 +1,6 @@
 
 import copy
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import json
 import time
 from typing import Any, Dict, List, Optional
@@ -12,6 +12,7 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import Column, DateTime, Integer, String
 
 from beatdrop import art, messages
+from beatdrop.helpers import utc_now_naive
 from beatdrop.entry_type_registry import EntryTypeRegistry
 from beatdrop.schedulers.singleton_lock_scheduler import SingletonLockScheduler
 from beatdrop.entries.schedule_entry import ScheduleEntry
@@ -197,7 +198,7 @@ class SQLScheduler(SingletonLockScheduler):
         """
         self._logger.info(messages.sched_lock_acquiring)
         while True:
-            utc_now = datetime.utcnow()
+            utc_now = utc_now_naive()
             with self._Session() as session:
                 # get table lock
                 db_lock_result = session.query(SQLSchedulerLock).populate_existing().with_for_update().all()
@@ -376,7 +377,7 @@ class SQLScheduler(SingletonLockScheduler):
             ``True`` if the lock was successfully refreshed, or else ``False``.
         """
         self._logger.debug(messages.sched_lock_refreshing)
-        utc_now = datetime.utcnow()
+        utc_now = utc_now_naive()
         with self._Session() as session:
             # get table lock
             db_lock_result = session.query(SQLSchedulerLock).populate_existing().with_for_update().all()

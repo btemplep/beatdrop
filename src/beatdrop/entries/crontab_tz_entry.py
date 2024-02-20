@@ -6,6 +6,7 @@ from croniter import croniter
 from pydantic import Field, validator
 import pytz
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop.entries.schedule_entry import ScheduleEntry
 from beatdrop import validators
 
@@ -87,11 +88,11 @@ class CrontabTZEntry(ScheduleEntry):
             ret_type=datetime.datetime
         )
 
-        return crony.get_next().astimezone(pytz.utc).replace(tzinfo=None) - datetime.datetime.utcnow()
+        return crony.get_next().astimezone(pytz.utc).replace(tzinfo=None) - utc_now_naive()
 
     
     def sent(self): 
-        self.last_sent_at = datetime.datetime.utcnow()
+        self.last_sent_at = utc_now_naive()
 
 
     def __str__(self) -> str:

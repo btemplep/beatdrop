@@ -4,6 +4,7 @@ from typing import ClassVar, List
 
 from pydantic import Field, validator
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop.entries.schedule_entry import ScheduleEntry
 from beatdrop import validators
 
@@ -55,14 +56,14 @@ class IntervalEntry(ScheduleEntry):
     )(validators.dt_is_naive)
 
     def due_in(self) -> datetime.timedelta:
-        utc_now = datetime.datetime.utcnow()
+        utc_now = utc_now_naive()
         delta_since_sent = utc_now - self.last_sent_at
         
         return self.period - delta_since_sent
 
     
     def sent(self):
-        self.last_sent_at = datetime.datetime.utcnow()
+        self.last_sent_at = utc_now_naive()
 
 
     def __str__(self) -> str:

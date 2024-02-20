@@ -3,6 +3,7 @@ import datetime
 
 import pytest
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop.entries import CrontabTZEntry
 
 
@@ -20,7 +21,7 @@ def crontab_tz_entry(
         kwargs=test_kwargs,
         cron_expression="*/1 * * * *",
         timezone="us/eastern",
-        last_sent_at=datetime.datetime.utcnow() - datetime.timedelta(minutes=3)
+        last_sent_at=utc_now_naive() - datetime.timedelta(minutes=3)
     )
 
 def test_creation(crontab_tz_entry: CrontabTZEntry) -> None:

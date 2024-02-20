@@ -5,6 +5,7 @@ from typing import ClassVar, List
 from croniter import croniter
 from pydantic import Field, validator
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop.entries.schedule_entry import ScheduleEntry
 from beatdrop import validators
 
@@ -50,7 +51,7 @@ class CrontabEntry(ScheduleEntry):
     cron_expression: str
 
     client_read_only_fields: ClassVar[List[str]] = ["last_sent_at"]
-    last_sent_at: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
+    last_sent_at: datetime.datetime = Field(default_factory=utc_now_naive)
 
     _dt_is_naive = validator(
         "last_sent_at",
@@ -70,11 +71,11 @@ class CrontabEntry(ScheduleEntry):
             ret_type=datetime.datetime
         )
 
-        return crony.get_next() - datetime.datetime.utcnow() 
+        return crony.get_next() - utc_now_naive()
 
     
     def sent(self): 
-        self.last_sent_at = datetime.datetime.utcnow()
+        self.last_sent_at = utc_now_naive()
 
 
     def __str__(self) -> str:

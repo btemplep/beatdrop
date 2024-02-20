@@ -6,6 +6,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
+from beatdrop.helpers import utc_now_naive
 from beatdrop import entries, messages, exceptions
 from beatdrop.entries import IntervalEntry
 from beatdrop.schedulers.sql_scheduler import SQLScheduler, SQLScheduleEntry, SQLSchedulerLock
@@ -88,7 +89,7 @@ def test_save_update_ro_attributes_false(
     sql_scheduler.save(interval_entry)
     new_period = datetime.timedelta(seconds=interval_entry.period.total_seconds() + 1)
     interval_entry.period = new_period
-    new_last_sent_at = datetime.datetime.utcnow()
+    new_last_sent_at = utc_now_naive()
     interval_entry.last_sent_at = new_last_sent_at
     sql_scheduler.save(interval_entry)
     with sql_scheduler._Session() as sess:
@@ -110,7 +111,7 @@ def test_save_update_ro_attributes_true(
     sql_scheduler.save(interval_entry)
     new_period = datetime.timedelta(seconds=interval_entry.period.total_seconds() + 1)
     interval_entry.period = new_period
-    new_last_sent_at = datetime.datetime.utcnow()
+    new_last_sent_at = utc_now_naive()
     interval_entry.last_sent_at = new_last_sent_at
     sql_scheduler.save(interval_entry, read_only_attributes=True)
     with sql_scheduler._Session() as sess:
@@ -207,7 +208,7 @@ def test__acquire_lock(
     sql_scheduler2: SQLScheduler,
     caplog: pytest.LogCaptureFixture
 ) -> None:
-    before = datetime.datetime.utcnow()
+    before = utc_now_naive()
     sql_scheduler._acquire_lock()
     assert messages.sched_lock_acquired in caplog.text
     with sql_scheduler._Session() as session:
@@ -216,7 +217,7 @@ def test__acquire_lock(
     caplog.clear()
     sql_scheduler2._acquire_lock()
     assert messages.sched_lock_acquired in caplog.text
-    after = datetime.datetime.utcnow()
+    after = utc_now_naive()
     assert after - before > lock_timeout
 
 
@@ -227,11 +228,11 @@ def test__acquire_lock_dead_scheduler(
 ) -> None:
     sql_scheduler._acquire_lock()
     assert messages.sched_lock_acquired in caplog.text
-    before = datetime.datetime.utcnow()
+    before = utc_now_naive()
     caplog.clear()
     sql_scheduler2._acquire_lock()
     assert messages.sched_lock_acquired in caplog.text
-    after = datetime.datetime.utcnow()
+    after = utc_now_naive()
     second_acquire_delta = after - before
     assert second_acquire_delta > (sql_scheduler.lock_timeout)
     assert second_acquire_delta < (sql_scheduler.lock_timeout + sql_scheduler.max_interval)
@@ -300,7 +301,7 @@ def test__cleanup_no_lock(
     caplog: pytest.LogCaptureFixture
 ) -> None:
     sql_scheduler_w_db_entry._acquire_lock()
-    sql_scheduler_w_db_entry._lock_last_refreshed_at = datetime.datetime.utcnow()
+    sql_scheduler_w_db_entry._lock_last_refreshed_at = utc_now_naive()
     # Should not throw an error
     sql_scheduler_w_db_entry._cleanup()
 
